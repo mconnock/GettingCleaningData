@@ -1,3 +1,11 @@
+# program: run_analysis
+# author: matt connock
+# 
+# purpose of program is to merge a set of test and training data with the relevent subjects and activities.
+# activities should be referenced by name rather than id to provide a descriptive data set.
+# one the data sets are merged the mean should be calculated for all measures relating to mean and std deviation.
+#
+
 # read files into data structures
 library("reshape2")
 run_analysis  <- function() {
