@@ -5,7 +5,6 @@
 # activities should be referenced by name rather than id to provide a descriptive data set.
 # one the data sets are merged the mean should be calculated for all measures relating to mean and std deviation.
 #
-
 # read files into data structures
 library("reshape2")
 run_analysis  <- function() {
@@ -31,7 +30,7 @@ run_analysis  <- function() {
     
     # Use regex to extract all mean and std features (but get rid of meanFreq and any values for Z as we are only looking at X and Y values)
     # Then extract the features found by the grep function into a 'filtered' dataset
-    dfTidyCols  <- grep("subject|activity|(.*)mean[^F](.*)[^Z]$|(.*)std(.*)[^Z]$", names(dfXAndY))
+    dfTidyCols  <- grep("subject|activity|(.*)mean(.*)|(.*)std(.*)", names(dfXAndY))
     dfTmpSet  <<- dfXAndY[,dfTidyCols]
     
     # Label the actitivites with descriptive names by loading in the reference data
@@ -45,5 +44,4 @@ run_analysis  <- function() {
     m2  <<- melt(m1, id.vars=(1:3), na.rm=TRUE)
     dfOut  <<- dcast(m2, ActivityName + subject ~ variable, mean)
     write.csv(dfOut, "data/out.txt")
-
 }
