@@ -28,7 +28,7 @@ run_analysis  <- function() {
     dfTmpY  <- rbind(dfYTest, dfYTrain)    
     dfXAndY  <- cbind(dfTmpSubject, dfTmpY, dfTmpX)
     
-    # Use regex to extract all mean and std features (but get rid of meanFreq and any values for Z as we are only looking at X and Y values)
+    # Use regex to extract all mean and std features 
     # Then extract the features found by the grep function into a 'filtered' dataset
     dfTidyCols  <- grep("subject|activity|(.*)mean(.*)|(.*)std(.*)", names(dfXAndY))
     dfTmpSet  <<- dfXAndY[,dfTidyCols]
@@ -42,6 +42,6 @@ run_analysis  <- function() {
     # The melt function collapses the structure into 1 row per activity, subject and measure
     # dcast provides the aggregate function for the output and then we write it out to an output file.
     m2  <<- melt(m1, id.vars=(1:3), na.rm=TRUE)
-    dfOut  <<- dcast(m2, ActivityName + subject ~ variable, mean)
+    dfOut  <<- dcast(m2, ActivityName + subject ~ variable, mean)       
     write.csv(dfOut, "data/out.txt")
 }
